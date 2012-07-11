@@ -6,6 +6,15 @@ homepage][tool_homepage].
 
 [tool_homepage]: http://nlp.cs.lth.se/software/treebank_converter/
 
+## Building ##
+
+As with most Java tools, ant is the build tool of choice. Run:
+
+    ant
+
+Once the command finishes you should have a fully functioning JAR-file in the
+repository root directory.
+
 ## Citing ##
 
 If you make use of this tool, please cite the following paper in your
