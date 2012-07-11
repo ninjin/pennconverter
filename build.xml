@@ -1,0 +1,36 @@
+<project name="pennconverter" default="all" basedir=".">
+
+ <target name="all" depends="build"/>
+
+  <target name="init">
+  	<property name="sourceDir" value="src" />
+  	<property name="outputDir" value="tmpclasses" />
+  </target>
+  
+  <target name="build" depends="init">
+    <delete dir="${outputDir}"/>
+    <mkdir dir="${outputDir}"/>
+
+    <property name="outputFile" value="pennconverter-110609.jar" />
+    <property name="mainFile" value="pennconverter/PennConverter.java" />
+    <property name="mainClass" value="pennconverter.PennConverter" />
+
+<!--classpath="../nlputils/external/trove.jar" -->
+    <javac target="1.5" 
+    includes="${mainFile}" destdir="${outputDir}"
+    nowarn="${compiler.nowarn}" debug="true">
+		<src>
+			<dirset dir="${sourceDir}"/>
+			<!--<dirset dir="../nlputils/src"/>-->
+		</src>
+    </javac>
+    <jar destfile="${outputFile}" baseDir="${outputDir}">
+        <manifest>
+          <attribute name="Main-Class"
+                     value="${mainClass}"/>
+        </manifest>
+    </jar>
+    <delete dir="${outputDir}"/>
+  </target>
+
+</project>
