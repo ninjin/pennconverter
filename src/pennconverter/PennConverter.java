@@ -388,21 +388,23 @@ public class PennConverter {
                     tree = tp.parseTree();
                 }
                 catch(Exception e) {
-                    logger.error(0, "*** ERROR when reading/deepening: "
+                    String errorMsg = "*** ERROR when reading/deepening: "
                             + e.getMessage() + "***\n"
                             + "(At line " + tp.getLineNbr() + ")\n"
-                            + "For this sentence: " + tp.getSentence());
+                            + "For this sentence: " + tp.getSentence();
+                    logger.error(0, errorMsg);
                     logger.message(2, exString(e));
                     if(stopOnError)
-                        die("Exiting.");
+                        die(errorMsg + "\n" + "Exiting.");
                     continue;
                 }
 
                 if(tree == null) {
-                    logger.error(0, "*** ERROR when reading/deepening: Returned null "
+                    String errorMsg = "*** ERROR when reading/deepening: Returned null "
                             + "***\n"
-                            + "(At line " + tp.getLineNbr() + ")");
-                    die("Exiting.");
+                            + "(At line " + tp.getLineNbr() + ")";
+                    logger.error(0, errorMsg);
+                    die(errorMsg + "\n" + "Exiting.");
                 }
 
                 n++;
@@ -423,10 +425,11 @@ public class PennConverter {
                 try {
                     tree.checkConsistency();
                 } catch(Exception e) {
-                    logger.error(0, "*** ERROR - consistency check failed: " 
-                            + e.getMessage() + "***");
+                    String errorMsg = "*** ERROR - consistency check failed: "
+                            + e.getMessage() + "***";
+                    logger.error(0, errorMsg);
                     logger.message(2, exString(e));
-                    die("Exiting.");
+                    die(errorMsg + "\n" + "Exiting.");
                     continue;
                 }
 
@@ -434,11 +437,12 @@ public class PennConverter {
                     if(options.conll2008clf)
                         moveCleftSBAR(tree);
                 } catch(Exception e) {
-                    logger.error(0, "*** ERROR when moving cleft SBARs: " 
-                            + e.getMessage() + "***");
+                    String errorMsg = "*** ERROR when moving cleft SBARs: "
+                            + e.getMessage() + "***";
+                    logger.error(0, errorMsg);
                     logger.message(2, exString(e));
                     if(stopOnError)
-                        die("Exiting.");
+                        die(errorMsg + "\n" + "Exiting.");
                     continue;
                 }
 
@@ -446,22 +450,24 @@ public class PennConverter {
                     if(options.splitSmallClauses)
                         splitObjPRD(tree);
                 } catch(Exception e) {
-                    logger.error(0, "*** ERROR when splitting objects/predicatives: " 
-                            + e.getMessage() + "***");
+                    String errorMsg = "*** ERROR when splitting objects/predicatives: "
+                        + e.getMessage() + "***";
+                    logger.error(0, errorMsg);
                     logger.message(2, exString(e));
                     if(stopOnError)
-                        die("Exiting.");
+                        die(errorMsg + "\n" + "Exiting.");
                     continue;
                 }
 
                 try {
                     inferNewEdgeLabels(tree, options);
                 } catch(Exception e) {
-                    logger.error(0, "*** ERROR when inferring edge labels: " 
-                            + e.getMessage() + "***");
+                    String errorMsg = "*** ERROR when inferring edge labels: "
+                            + e.getMessage() + "***";
+                    logger.error(0, errorMsg);
                     logger.message(2, exString(e));
                     if(stopOnError)
-                        die("Exiting.");
+                        die(errorMsg + "\n" + "Exiting.");
                     continue;
                 }
 
@@ -471,22 +477,24 @@ public class PennConverter {
                 try {
                     removeRedundantSecEdges(tree, options);
                 } catch(Exception e) {
-                    logger.error(0, "*** ERROR when removing sec edges: "
-                            + e.getMessage() + "***");
+                    String errorMsg = "*** ERROR when removing sec edges: "
+                            + e.getMessage() + "***";
+                    logger.error(0, errorMsg);
                     logger.message(2, exString(e));
                     if(stopOnError)
-                        die("Exiting.");
+                        die(errorMsg + "\n" + "Exiting.");
                     continue;
                 }
 
                 try {
                     relinkNodes(tree, options);
                 } catch(Exception e) {
-                    logger.error(0, "*** ERROR when re-linking sec edges: " 
-                            + e.getMessage() + "***");
+                    String errorMsg = "*** ERROR when re-linking sec edges: "
+                            + e.getMessage() + "***";
+                    logger.error(0, errorMsg);
                     logger.message(2, exString(e));
                     if(stopOnError)
-                        die("Exiting.");
+                        die(errorMsg + "\n" + "Exiting.");
                     continue;
                 }
 
@@ -496,21 +504,23 @@ public class PennConverter {
                 try {
                     tree.checkConsistency();
                 } catch(Exception e) {
-                    logger.error(0, "*** ERROR - consistency check failed: " 
-                            + e.getMessage() + "***");
+                    String errorMsg = "*** ERROR - consistency check failed: "
+                        + e.getMessage() + "***";
+                    logger.error(0, errorMsg);
                     logger.message(2, exString(e));
-                    die("Exiting.");
+                    die(errorMsg + "\n" + "Exiting.");
                     continue;
                 }
 
                 try {
                     finalEdgeLabels(tree.getTopNode(), options);
                 } catch(Exception e) {
-                    logger.error(0, "*** ERROR in finalEdgeLabels: " 
-                            + e.getMessage() + "***");
+                    String errorMsg = "*** ERROR in finalEdgeLabels: "
+                            + e.getMessage() + "***";
+                    logger.error(0, errorMsg);
                     logger.message(2, exString(e));
                     if(stopOnError)
-                        die("Exiting.");
+                        die(errorMsg + "\n" + "Exiting.");
                     continue;
                 }
 
@@ -518,11 +528,12 @@ public class PennConverter {
                     if(options.ddtGapping)
                         relabelGapping(tree);
                 } catch(Exception e) {
-                    logger.error(0, "*** When relabeling gapping: " 
-                            + e.getMessage() + "***");
+                    String errorMsg = "*** When relabeling gapping: "
+                            + e.getMessage() + "***";
+                    logger.error(0, errorMsg);
                     logger.message(2, exString(e));
                     if(stopOnError)
-                        die("Exiting.");
+                        die(errorMsg + "\n" + "Exiting.");
                     continue;
                 }
 
@@ -532,10 +543,11 @@ public class PennConverter {
                 try {
                     tree.checkConsistency();
                 } catch(Exception e) {
-                    logger.error(0, "*** ERROR - consistency check failed: " 
-                            + e.getMessage() + "***");
+                    String errorMsg = "*** ERROR - consistency check failed: "
+                            + e.getMessage() + "***";
+                    logger.error(0, errorMsg);
                     logger.message(2, exString(e));
-                    die("Exiting.");
+                    die(errorMsg + "\n" + "Exiting.");
                     continue;
                 }
                 
@@ -547,21 +559,23 @@ public class PennConverter {
                             node.unlinkSecChildren();
                             
                 } catch(Exception e) {
-                    logger.error(0, "*** When creating secondary links: " 
-                            + e.getMessage() + "***");
+                    String errorMsg = "*** When creating secondary links: "
+                            + e.getMessage() + "***";
+                    logger.error(0, errorMsg);
                     logger.message(2, exString(e));
                     if(stopOnError)
-                        die("Exiting.");
+                        die(errorMsg + "\n" + "Exiting.");
                     continue;
                 }
                 
                 try {
                     tree.checkConsistency();
                 } catch(Exception e) {
-                    logger.error(0, "*** ERROR - consistency check failed: " 
-                            + e.getMessage() + "***");
+                    String errorMsg = "*** ERROR - consistency check failed: "
+                            + e.getMessage() + "***";
+                    logger.error(0, errorMsg);
                     logger.message(2, exString(e));
-                    die("Exiting.");
+                    die(errorMsg + "\n" + "Exiting.");
                     continue;
                 }
                 
@@ -570,11 +584,12 @@ public class PennConverter {
                 try {
                     depgraph = tree.toDepGraph(options.keepEmpty);                
                 } catch(Exception e) {
-                    logger.error(0, "*** ERROR when converting to dependencies: " 
-                            + e.getMessage() + "***");
+                    String errorMsg = "*** ERROR when converting to dependencies: "
+                            + e.getMessage() + "***";
+                    logger.error(0, errorMsg);
                     logger.message(2, exString(e));
                     if(stopOnError)
-                        die("Exiting.");
+                        die(errorMsg + "\n" + "Exiting.");
                     continue;
                 }
 
@@ -587,11 +602,12 @@ public class PennConverter {
                         removeRootLabels(depgraph);
 
                 } catch(Exception e) {
-                    logger.error(0, "*** ERROR when post-processing dep tree: " 
-                            + e.getMessage() + "***");
+                    String errorMsg = "*** ERROR when post-processing dep tree: "
+                            + e.getMessage() + "***";
+                    logger.error(0, errorMsg);
                     logger.message(2, exString(e));
                     if(stopOnError)
-                        die("Exiting.");
+                        die(errorMsg + "\n" + "Exiting.");
                     continue;
                 }
 
@@ -600,11 +616,12 @@ public class PennConverter {
                         toMelchukCoords(depgraph);
                     }
                 } catch(Exception e) {
-                    logger.error(0, "*** ERROR when relinking coordinations: " 
-                            + e.getMessage() + "***");
+                    String errorMsg = "*** ERROR when relinking coordinations: "
+                            + e.getMessage() + "***";
+                    logger.error(0, errorMsg);
                     logger.message(2, exString(e));
                     if(stopOnError)
-                        die("Exiting.");
+                        die(errorMsg + "\n" + "Exiting.");
                     continue;
                 }
 
@@ -616,10 +633,11 @@ public class PennConverter {
                 try {
                     depgraph.checkConsistency();
                 } catch(Exception e) {
-                    logger.error(0, "*** ERROR - consistency check failed: " 
-                            + e.getMessage() + "***");
+                    String errorMsg = "*** ERROR - consistency check failed: "
+                            + e.getMessage() + "***";
+                    logger.error(0, errorMsg);
                     logger.message(2, exString(e));
-                    die("Exiting.");
+                    die(errorMsg + "\n" + "Exiting.");
                 }
 
                 if(depgraph.isProjective())
