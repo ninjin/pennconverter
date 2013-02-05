@@ -16,7 +16,7 @@
     <property name="mainClass" value="pennconverter.PennConverter" />
 
 <!--classpath="../nlputils/external/trove.jar" -->
-    <javac target="1.5" 
+    <javac target="1.5" source="1.5"
     includes="${mainFile}" destdir="${outputDir}"
     nowarn="${compiler.nowarn}" debug="true">
 		<src>
