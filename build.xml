@@ -11,7 +11,17 @@
     <delete dir="${outputDir}"/>
     <mkdir dir="${outputDir}"/>
 
-    <property name="outputFile" value="pennconverter-110609.jar" />
+    <!-- Get the timestamp of the latest commit (remember to commit before you
+            build a release, or you will get the wrong timestamp). -->
+    <!-- Note: I would have preferred a pretty date, but git-log doesn't seem
+            to support it. -->
+    <exec executable="git" outputproperty="git.committer.timestamp">
+        <arg value="log" />
+        <arg value="-1" />
+        <arg value="--pretty=format:%ct" />
+    </exec>
+
+    <property name="outputFile" value="pennconverter-${git.committer.timestamp}.jar" />
     <property name="mainFile" value="pennconverter/PennConverter.java" />
     <property name="mainClass" value="pennconverter.PennConverter" />
 
