@@ -27,9 +27,7 @@ publication:
 
 ## License ##
 
-The original tool is made available under the [Three-clause BSD License][bsd]
-and the patches by Pontus Stenetorp are available under the BSD-compatible
-[ISC License][isc].
+The original tool is made available under the [Three-clause BSD License][bsd].
+Consider any patches to be under the same license.
 
 [bsd]: http://opensource.org/licenses/BSD-3-Clause
-[isc]: http://opensource.org/licenses/ISC
